@@ -1,4 +1,4 @@
-FROM    ubuntu:18.04
+FROM    ubuntu:20.04
 # Make sure the package repository is up to date
 
 # built-in packages
@@ -48,7 +48,7 @@ RUN apt-get install -y x11vnc xvfb firefox
 
 RUN apt update \
     && apt install -y --no-install-recommends --allow-unauthenticated software-properties-common curl apache2-utils \
-       apt-transport-https wget curl vim netcat net-tools openssh-server gpg-agent paraview git repo \ 
+       apt-transport-https wget curl vim netcat net-tools openssh-server gpg-agent paraview git \ 
        xfonts-base xfonts-75dpi xfonts-100dpi \
        xorg ubuntu-desktop ubuntu-gnome-desktop gnome-core gnome-panel gnome-session gnome-settings-daemon metacity nautilus gnome-terminal gnome-tweak-tool \
        xfce4 \
@@ -101,7 +101,7 @@ RUN mkdir -p /home/asap/.vnc
 RUN x11vnc -storepasswd 1234 /home/asap/.vnc/passwd
 
 # COPY xstartup /root/.vnc/xstartup
-COPY xstartup /home/asap/.vnc/xstartup
+COPY xstartup.gnome /home/asap/.vnc/xstartup
 
 # RUN chmod 755 /root/.vnc/xstartup
 RUN chown -R asap:asap /home/asap/.vnc
@@ -113,4 +113,4 @@ RUN ls -lart /home/asap/
 USER asap
 WORKDIR /home/asap
 
-CMD ["bash"]
+CMD ["bash","-c","'cat /home/asap/.vnc/xstartup &&  vncserver :1 -geometry 1680x1050 -depth 24 && tail -F /home/asap/.vnc/*.log'"]
