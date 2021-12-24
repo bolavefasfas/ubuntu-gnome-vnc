@@ -54,22 +54,22 @@ RUN apt update \
        xfce4 \
        tightvncserver
 
-RUN apt update \
-    && apt install -y --no-install-recommends \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list > /dev/null \
-    && wget https://dl.google.com/linux/linux_signing_key.pub \
-    && apt-key add linux_signing_key.pub \
-    && apt update \
-    && apt install -y google-chrome-stable \
-    && rm linux_signing_key.pub \
-    && wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - \
-    #&& add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" \
-    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | tee /etc/apt/sources.list.d/vscode.list > /dev/null \
-    && apt update \
-    && apt install code \
-    && apt autoclean -y \
-    && apt autoremove -y \
-    && rm -rf /var/lib/apt/lists/* 
+# RUN apt update \
+#     && apt install -y --no-install-recommends \
+#     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list > /dev/null \
+#     && wget https://dl.google.com/linux/linux_signing_key.pub \
+#     && apt-key add linux_signing_key.pub \
+#     && apt update \
+#     && apt install -y google-chrome-stable \
+#     && rm linux_signing_key.pub \
+#     && wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add - \
+#     #&& add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" \
+#     && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | tee /etc/apt/sources.list.d/vscode.list > /dev/null \
+#     && apt update \
+#     && apt install code \
+#     && apt autoclean -y \
+#     && apt autoremove -y \
+#     && rm -rf /var/lib/apt/lists/* 
 
 
 # Hostname configuration
