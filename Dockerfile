@@ -102,15 +102,15 @@ RUN x11vnc -storepasswd 1234 /home/asap/.vnc/passwd
 
 # COPY xstartup /root/.vnc/xstartup
 COPY xstartup.gnome /home/asap/.vnc/xstartup
+COPY startup.sh /home/asap/.vnc/startup.sh
 
 # RUN chmod 755 /root/.vnc/xstartup
 RUN chown -R asap:asap /home/asap/.vnc
-RUN chmod a+x /home/asap/.vnc/xstartup
-RUN ls -lart /home/asap/
+RUN chmod a+x /home/asap/.vnc/xstartup /home/asap/.vnc/startup.sh
 
 #RUN bash -c 'echo " /usr/bin/Xvfb :0 -screen 0 1280x1024x24 -cc 4 -nolisten tcp -auth /var/gdm/:0.Xauth && service gdm3 start" >> /.bashrc'
 
 USER asap
 WORKDIR /home/asap
 
-CMD ["bash","-c","'cat /home/asap/.vnc/xstartup &&  vncserver :1 -geometry 1680x1050 -depth 24 && tail -F /home/asap/.vnc/*.log'"]
+CMD ["/home/asap/.vnc/startup.sh"]
