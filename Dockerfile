@@ -1,4 +1,4 @@
-FROM    ubuntu:20.04
+FROM ubuntu:20.04
 # Make sure the package repository is up to date
 
 # built-in packages
@@ -33,6 +33,7 @@ RUN apt-get install -y libfuse2 && \
 # Upstart and DBus have issues inside docker.
 RUN dpkg-divert --local --rename --add /sbin/initctl && ln -sf /bin/true /sbin/initctl
 
+# Install locates
 RUN apt install -y --no-install-recommends --allow-unauthenticated sudo locales && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
@@ -46,6 +47,7 @@ ENV LC_ALL en_US.UTF-8
 # Install vnc, xvfb in order to create a 'fake' display and firefox
 RUN apt-get install -y x11vnc xvfb firefox
 
+# Install Ubuntu Desktop & Tools 
 RUN apt update \
     && apt install -y --no-install-recommends --allow-unauthenticated software-properties-common curl apache2-utils \
        apt-transport-https wget curl vim netcat net-tools openssh-server gpg-agent paraview git \ 
